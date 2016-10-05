@@ -8,7 +8,7 @@ import re
 
 base_url = 'https://otx.alienvault.com/api/v1/indicators/'
 pulse_url = 'https://otx.alienvault.com/api/v1/pulses/'
-headers = {'X-OTX-API-KEY':'<INSERT YOUR API KEY HERE'}
+headers = {'X-OTX-API-KEY':'<INSERT API KEY HERE>'}
 
 me = MaltegoTransform()
 me.parseArguments(sys.argv)
@@ -88,12 +88,14 @@ if section == 'pulses':
 if section == 'geo':
 	r = requests.get(base_url+entity_type+'/'+entity+'/geo', headers=headers)
 	response = r.json()
-	if response['region'] == None:
-		region = ''
+	if response == {}:
+		pass
 	else:
-		region = response['region'] + str(', ')
-	ent = me.addEntity("maltego.Location",response['asn'] + '\n' + region + response['country_name'])
-	ent.addAdditionalFields('link#maltego.link.label','Label','',' ')
+		asn = response.get('asn')
+		region = response.get('region')
+		country_name = response.get('country_name')
+		ent = me.addEntity("maltego.Location",str(asn) + '\n' + str(region) + str(country_name))
+		ent.addAdditionalFields('link#maltego.link.label','Label','',' ')
 
 if section == 'malware':
 	try:
