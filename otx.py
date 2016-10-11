@@ -8,7 +8,7 @@ import re
 
 base_url = 'https://otx.alienvault.com/api/v1/indicators/'
 pulse_url = 'https://otx.alienvault.com/api/v1/pulses/'
-headers = {'X-OTX-API-KEY':'<INSERT API KEY HERE>'}
+headers = {'X-OTX-API-KEY':'<insert API key here>'}
 
 me = MaltegoTransform()
 me.parseArguments(sys.argv)
@@ -50,8 +50,8 @@ if section == 'indicators':
 		if indicator['type'] == 'domain':
 			ent = me.addEntity("maltego.Domain",indicator['indicator'])
 		if indicator['type'] == 'URL':
-			ent = me.addEntity("maltego.URL",indicator['indicator'])
-			ent.addAdditionalFields('url','URL','','URL')
+			ent = me.addEntity("URL",indicator['indicator'])
+			ent.addAdditionalFields('theurl','URL','',indicator['indicator'])
 		if indicator['type'] == 'FileHash-MD5':
 			ent = me.addEntity("maltego.Hash",indicator['indicator'])
 		if indicator['type'] == 'FileHash-SHA1':
