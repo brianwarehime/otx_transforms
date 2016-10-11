@@ -51,12 +51,15 @@ if section == 'indicators':
 			ent = me.addEntity("maltego.Domain",indicator['indicator'])
 		if indicator['type'] == 'URL':
 			ent = me.addEntity("maltego.URL",indicator['indicator'])
+			ent.addAdditionalFields('url','URL','','URL')
 		if indicator['type'] == 'FileHash-MD5':
 			ent = me.addEntity("maltego.Hash",indicator['indicator'])
 		if indicator['type'] == 'FileHash-SHA1':
 			ent = me.addEntity("maltego.Hash",indicator['indicator'])
 		if indicator['type'] == 'hostname':
 			ent = me.addEntity("maltego.DNSName",indicator['indicator'])
+		if indicator['type'] == "FileHash-SHA256":
+			ent = me.addEntity("maltego.Hash",indicator['indicator'])
 		else:
 			ent = me.addEntity("maltego.unknown",indicator['indicator'])
 		adddatefield_indicators(indicator)
