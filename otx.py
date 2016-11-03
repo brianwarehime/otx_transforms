@@ -37,8 +37,12 @@ else:
 	entity_type = entity_type
 
 def adddatefield_indicators(indicator):
-	dt = datetime.datetime.strptime(str(indicator['created']),'%Y-%m-%dT%H:%M:%S.%f')
-	ent.addAdditionalFields('link#maltego.link.label','Label','',str(dt.date()))
+	try:
+            dt = datetime.datetime.strptime(str(indicator['created']),'%Y-%m-%dT%H:%M:%S.%f')
+            datetime = str(dt.date())
+        except:
+            datetime = ''
+	ent.addAdditionalFields('link#maltego.link.label','Label','',str(datetime))
 
 if section == 'indicators':
 	pulse_id = entity_type.split('#')[0].split('=')[1]
